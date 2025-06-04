@@ -11,6 +11,7 @@ import br.dev.eduardo.tarefas.dao.FuncionarioDAO;
 import br.dev.eduardo.tarefas.model.Funcionario;
 import br.dev.eduardo.tarefas.model.Tarefa;
 import br.dev.eduardo.tarefas.ui.FuncionarioFrame;
+import br.dev.eduardo.tarefas.ui.FuncionariosListaFrame;
 
 public class Main {
 
@@ -18,7 +19,13 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		new FuncionarioFrame();
+		
+		//FuncionarioDAO dao = new FuncionarioDAO(null);
+		//dao.getFuncionarios();
+		
+		new FuncionariosListaFrame();
+		
+		//new FuncionarioFrame();
 		
 		
 //		UUID uuid = UUID.randomUUID();

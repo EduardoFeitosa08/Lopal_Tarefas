@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,16 +17,16 @@ import br.dev.eduardo.tarefas.model.Funcionario;
 public class FuncionarioFrame {
 	
 	
-	public FuncionarioFrame() {
-		criarTela();
+	public FuncionarioFrame(JFrame tela) {
+		criarTela(tela);
 	}
 
-	private void criarTela() {
+	private void criarTela(JFrame parent) {
 		
-		JFrame tela = new JFrame();
+		JDialog tela = new JDialog(parent, true);
 		tela.setSize(400, 400);
 		tela.setTitle("Cadastro de Funcionarios");
-		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setLayout(null);
 		tela.setLocationRelativeTo(null);
 		
@@ -39,7 +40,7 @@ public class FuncionarioFrame {
 		labelCargo.setBounds(10, 75, 150, 30);
 		
 		JTextField txtCargo = new JTextField();
-		txtCargo.setBounds(10, 105, 150, 30);
+		txtCargo.setBounds(10, 105, 200, 30);
 		
 		JLabel labelSetor = new JLabel("Setor: ");
 		labelSetor.setBounds(10, 140, 150, 30);
@@ -50,6 +51,9 @@ public class FuncionarioFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(10, 250, 150, 40);
 		
+		JButton btnSair = new JButton("Sair");
+		btnSair.setBounds(170, 250, 150, 40);
+		
 		
 		Container painel = tela.getContentPane();
 		painel.add(labelNome);
@@ -59,6 +63,7 @@ public class FuncionarioFrame {
 		painel.add(labelSetor);
 		painel.add(txtSetor);
 		painel.add(btnSalvar);
+		painel.add(btnSair);
 		
 		btnSalvar.addActionListener(new ActionListener() {
 			
@@ -79,6 +84,23 @@ public class FuncionarioFrame {
 				txtCargo.setText(null);
 				txtSetor.setText(null);
 				txtNome.requestFocus();
+				
+			}
+		});
+		
+		btnSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//Caixa de dialogo de confirmaçao para se o usuario deseja sair do sistema
+				int resposta = JOptionPane.showConfirmDialog(tela, "Sair do Sistema?");
+				
+				if(resposta == 0) {
+					tela.dispose();
+				}
+				
+				
 				
 			}
 		});
