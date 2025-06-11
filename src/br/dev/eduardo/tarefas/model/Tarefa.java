@@ -1,6 +1,7 @@
 package br.dev.eduardo.tarefas.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Tarefa {
 
@@ -11,7 +12,7 @@ public class Tarefa {
 	private LocalDate dataPrevisaoDeEntrega;
 	private LocalDate dataEntrega;
 	private Status status;
-	private Funcionario responsavel;
+	private String responsavel;
 
 	public Tarefa() {
 		System.out.println("Criando uma tarefa...");
@@ -43,6 +44,9 @@ public class Tarefa {
 	}
 
 	public void setDataInicio(LocalDate dataInicio) {
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String dataInicio2 = dataInicio.format(formato);
+
 		this.dataInicio = dataInicio;
 	}
 
@@ -78,11 +82,11 @@ public class Tarefa {
 		this.status = status;
 	}
 
-	public Funcionario getResponsavel() {
+	public String getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(Funcionario responsavel) {
+	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
 	}
 

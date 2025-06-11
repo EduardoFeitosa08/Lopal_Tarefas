@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import br.dev.eduardo.tarefas.dao.FuncionarioDAO;
@@ -12,18 +14,24 @@ import br.dev.eduardo.tarefas.model.Funcionario;
 import br.dev.eduardo.tarefas.model.Tarefa;
 import br.dev.eduardo.tarefas.ui.FuncionarioFrame;
 import br.dev.eduardo.tarefas.ui.FuncionariosListaFrame;
+import br.dev.eduardo.tarefas.ui.GerenciadorFrame;
+import br.dev.eduardo.tarefas.ui.TarefaFrame;
+import br.dev.eduardo.tarefas.ui.TarefaListaFrame;
 
 public class Main {
 
 	static String caminho = "/Users/25132675/tarefasDS1TA/tarefas";
 	
 	public static void main(String[] args) {
-		
-		
+				
 		//FuncionarioDAO dao = new FuncionarioDAO(null);
 		//dao.getFuncionarios();
 		
-		new FuncionariosListaFrame();
+		//new TarefaFrame();
+		
+		new GerenciadorFrame();
+		
+		//new FuncionariosListaFrame();
 		
 		//new FuncionarioFrame();
 		

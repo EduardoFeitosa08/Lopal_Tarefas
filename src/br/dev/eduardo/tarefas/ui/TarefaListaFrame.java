@@ -1,14 +1,10 @@
 package br.dev.eduardo.tarefas.ui;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
-import java.util.List;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -18,10 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import br.dev.eduardo.tarefas.dao.FuncionarioDAO;
-import br.dev.eduardo.tarefas.model.Funcionario;
-
-public class FuncionariosListaFrame {
+public class TarefaListaFrame {
 
 	private JLabel labelTitulo;
 	private JButton btnNovo;
@@ -31,16 +24,17 @@ public class FuncionariosListaFrame {
 	private DefaultTableModel modelFuncionarios; //O que vai ter na tabela
 	private JScrollPane scroll; //Deixa a tabela scrollavel se ela ser muito grande
 	
-	private String[] colunas = {"CÓDIGO", "NOME DO FUNCIONÁRIO", "CARGO"};
+	private String[] colunas = {"NOME DA TAREFA", "DESCRIÇÃO", "RESPONSAVEL", "DATA DE INICIO", "PRAZO", "STATUS", "DATA DE ENTREGA"};
 	
-	public FuncionariosListaFrame(JFrame tela) {
+	public TarefaListaFrame(JFrame tela) {
 		criarTela(tela);
 	}
 	
-	private void criarTela(JFrame parent) {
+	public void criarTela(JFrame parent3) {
 		
-		JDialog tela = new JDialog(parent, true);
-		tela.setSize(600, 500);
+		JDialog tela = new JDialog(parent3, true);
+		tela.setSize(900, 500);
+		tela.setTitle("Lista de Tarefas");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);
 		tela.setLayout(null);
@@ -48,16 +42,16 @@ public class FuncionariosListaFrame {
 		
 		Container painel = tela.getContentPane();
 		
-		labelTitulo = new JLabel("Cadastro de Funcionários");
+		labelTitulo = new JLabel("Lista de Tarefas");
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 28));
 		labelTitulo.setBounds(10, 10, 400, 40);
 		
 		
 		modelFuncionarios = new DefaultTableModel(colunas, 1);
-		carregarDados();
+		//carregarDados();
 		tabelaFuncionarios = new JTable(modelFuncionarios);
 		scroll = new JScrollPane(tabelaFuncionarios);
-		scroll.setBounds(10, 60, 580, 340);
+		scroll.setBounds(10, 60, 880, 340);
 		
 		btnNovo = new JButton("Novo");
 		btnNovo.setBounds(10, 410, 150, 40);
@@ -66,10 +60,11 @@ public class FuncionariosListaFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FuncionarioFrame(tela);
-				carregarDados();
+				new TarefaFrame(tela);
+				//carregarDados();
 			}
 		});
+		
 		
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(180, 410, 150, 40);
@@ -99,28 +94,5 @@ public class FuncionariosListaFrame {
 		tela.setVisible(true);
 		
 	}
-
-	private Object[][] carregarDados() {
-		//Obter os dados que serão exibidos na Tabela
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		List<Funcionario> funcionarios = dao.getFuncionarios();
-		
-		Object[][] dados = new Object[funcionarios.size()][3];
-		
-		
-		//Para cada funcionario na lista de funcionarios
-		int i = 0;
-		for(Funcionario f : funcionarios) {
-			dados[i][0] = f.getMatricula();
-			dados[i][1] = f.getNome();
-			dados[i][2] = f.getCargo();
-			i++;
-			
-			
-		}
-		modelFuncionarios.setDataVector(dados, colunas);
-		return dados;
-	}
-	
 	
 }
