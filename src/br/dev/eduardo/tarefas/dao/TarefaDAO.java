@@ -61,7 +61,7 @@ public class TarefaDAO {
 					Tarefa tarefa = new Tarefa();
 					tarefa.setNome(tarefaVetor[0]);
 					tarefa.setDescricao(tarefaVetor[1]);
-					tarefa.setResponsavel(tarefaVetor[3]);
+//					tarefa.setResponsavel(tarefaVetor[3]);
 					//tarefa.setDataInicio(tarefaVetor[4]);
 					
 					

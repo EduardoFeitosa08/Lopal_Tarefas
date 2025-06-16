@@ -1,5 +1,6 @@
 package br.dev.eduardo.tarefas.model;
 
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +13,7 @@ public class Tarefa {
 	private LocalDate dataPrevisaoDeEntrega;
 	private LocalDate dataEntrega;
 	private Status status;
-	private String responsavel;
+	private Toolkit responsavel;
 
 	public Tarefa() {
 		System.out.println("Criando uma tarefa...");
@@ -82,12 +83,12 @@ public class Tarefa {
 		this.status = status;
 	}
 
-	public String getResponsavel() {
+	public Toolkit getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(String responsavel) {
-		this.responsavel = responsavel;
+	public void setResponsavel(Toolkit toolkit) {
+		this.responsavel = toolkit;
 	}
 
 }

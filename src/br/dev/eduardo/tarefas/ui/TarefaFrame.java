@@ -4,14 +4,23 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
+import javax.swing.event.ChangeListener;
 
+import br.dev.eduardo.tarefas.dao.FuncionarioDAO;
+import br.dev.eduardo.tarefas.model.Funcionario;
+import br.dev.eduardo.tarefas.model.Status;
 import br.dev.eduardo.tarefas.model.Tarefa;
 
 public class TarefaFrame {
@@ -21,15 +30,16 @@ public class TarefaFrame {
 	private JLabel labelDescricao;
 	private JTextField textDescricao;
 	private JLabel labelResponsavel;
-	private JTextField textResponsavel;
+	private JComboBox<Funcionario> comboResponsavel;
 	private JLabel labelDataInicio;
-	private JTextField textDataInicio;
+	private JSpinner spinnerDataInicio;
 	private JLabel labelPrazo;
 	private JTextField textPrazo;
 	private JLabel labelDataPrevEntrega;
 	private JTextField textDataPrevEntrega;
 	private JLabel labelStatus;
-	private JTextField textStatus;
+	private JComboBox<Status> comboStatus;
+	private JLabel labelDataConclusao;
 	private JButton btnSalvar;
 	private JButton btnSair;
 	
@@ -41,7 +51,7 @@ public class TarefaFrame {
 	private void criarTela(JDialog parent4) {
 		
 		JDialog tela = new JDialog(parent4, true);
-		tela.setSize(300, 800);
+		tela.setSize(300, 550);
 		tela.setTitle("Nova Tarefa");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);
@@ -55,56 +65,63 @@ public class TarefaFrame {
 		labelNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		textNome = new JTextField();
-		textNome.setBounds(10, 50, 200, 50);
+		textNome.setBounds(10, 40, 200, 25);
 		
 		labelDescricao = new JLabel("Descrição:");
-		labelDescricao.setBounds(10, 110, 100, 20);
+		labelDescricao.setBounds(10, 70, 100, 20);
 		labelDescricao.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		textDescricao = new JTextField();
-		textDescricao.setBounds(10, 140, 200, 50);
+		textDescricao.setBounds(10, 90, 200, 25);
 		
 		labelResponsavel = new JLabel("Responsavel:");
-		labelResponsavel.setBounds(10, 200, 100, 20);
+		labelResponsavel.setBounds(10, 130, 100, 20);
 		labelResponsavel.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		textResponsavel = new JTextField();
-		textResponsavel.setBounds(10, 230, 200, 50);
+		List<Funcionario> funcionario = new FuncionarioDAO(null).getFuncionarios();
+		comboResponsavel = new JComboBox<>(funcionario.toArray(new Funcionario[0]));
+		comboResponsavel.setBounds(10, 150, 200, 25);
 		
 		labelDataInicio = new JLabel("Data de Inicio:");
-		labelDataInicio.setBounds(10, 290, 100, 20);
+		labelDataInicio.setBounds(10, 180, 100, 20);
 		labelDataInicio.setFont(new Font("Arial", Font.BOLD, 14));
-		
-		textDataInicio = new JTextField();
-		textDataInicio.setBounds(10, 320, 150, 50);
+	
+		spinnerDataInicio = criarSpinnerData();
+		spinnerDataInicio.setBounds(10, 200, 150, 25);
 		
 		labelPrazo = new JLabel("Prazo:");
-		labelPrazo.setBounds(10, 380, 100, 20);
+		labelPrazo.setBounds(10, 235, 100, 20);
 		labelPrazo.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		textPrazo = new JTextField();
-		textPrazo.setBounds(10, 410, 100, 50);
+		textPrazo.setBounds(10, 255, 150, 25);
 		
 		labelDataPrevEntrega =  new JLabel("Data de Previsão de Entrega:");
-		labelDataPrevEntrega.setBounds(10, 470, 200, 20);
+		labelDataPrevEntrega.setBounds(10, 280, 200, 20);
 		labelDataPrevEntrega.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		textDataPrevEntrega = new JTextField();
-		textDataPrevEntrega.setBounds(10, 500, 150, 50);
+		textDataPrevEntrega.setBounds(10, 300, 150, 25);
 		
-		labelStatus = new JLabel("Status:");
-		labelStatus.setBounds(10, 560, 100, 20);
+		labelStatus = new JLabel("Status:");		
+		labelStatus.setBounds(10, 330, 100, 20);
 		labelStatus.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		textStatus = new JTextField();
-		textStatus.setBounds(10, 590, 200, 50);
+		comboStatus = new JComboBox<Status>(Status.values());
+		comboStatus.setBounds(10, 350, 200, 25);
+		
+		labelDataConclusao = new JLabel("Data de conclusão");
+		labelDataConclusao.setBounds(10, 380, 200, 20);
+		
+		JSpinner spinnerDataConclusao = criarSpinnerData();
+		spinnerDataConclusao.setBounds(10, 400, 200, 25);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 660, 130, 50);
+		btnSalvar.setBounds(10, 435, 130, 50);
 		btnSalvar.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		btnSair = new JButton("Sair");
-		btnSair.setBounds(150, 660, 130, 50);
+		btnSair.setBounds(150, 435, 130, 50);
 		btnSair.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		
@@ -115,10 +132,10 @@ public class TarefaFrame {
 		painel.add(textDescricao);
 		
 		painel.add(labelResponsavel);
-		painel.add(textResponsavel);
+		painel.add(comboResponsavel);
 		
 		painel.add(labelDataInicio);
-		painel.add(textDataInicio);
+		painel.add(spinnerDataInicio);
 		
 		painel.add(labelPrazo);
 		painel.add(textPrazo);
@@ -127,7 +144,10 @@ public class TarefaFrame {
 		painel.add(textDataPrevEntrega);
 		
 		painel.add(labelStatus);
-		painel.add(textStatus);
+		painel.add(comboStatus);
+		
+		painel.add(labelDataConclusao);
+		painel.add(spinnerDataConclusao);
 		
 		painel.add(btnSalvar);
 		painel.add(btnSair);
@@ -141,7 +161,7 @@ public class TarefaFrame {
 				Tarefa t = new Tarefa();
 				t.setNome(textNome.getText());
 				t.setDescricao(textDescricao.getText());
-				t.setResponsavel(textResponsavel.getText());
+				t.setResponsavel(comboResponsavel.getToolkit());
 				//t.setDataInicio(textDataInicio.getText());
 			}
 		});
@@ -168,7 +188,12 @@ public class TarefaFrame {
 		
 	}
 	
-	
+	private JSpinner criarSpinnerData() {
+		JSpinner spinner = new JSpinner(new SpinnerDateModel());
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+		spinner.setEditor(editor);
+		return spinner;
+	}
 	
 	
 	
