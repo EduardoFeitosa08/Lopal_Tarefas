@@ -2,13 +2,14 @@ package br.dev.eduardo.tarefas.model;
 
 import java.awt.Toolkit;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Tarefa {
 
 	private String nome;
 	private String descricao;
-	private LocalDate dataInicio;
+	private Toolkit dataInicio;
 	private int prazo;
 	private LocalDate dataPrevisaoDeEntrega;
 	private LocalDate dataEntrega;
@@ -40,15 +41,12 @@ public class Tarefa {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataInicio() {
+	public Toolkit getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataInicio2 = dataInicio.format(formato);
-
-		this.dataInicio = dataInicio;
+	public void setDataInicio(Toolkit toolkit) {
+		this.dataInicio = toolkit;
 	}
 
 	public int getPrazo() {

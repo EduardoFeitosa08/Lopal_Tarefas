@@ -40,7 +40,7 @@ public class FuncionariosListaFrame {
 	private void criarTela(JFrame parent) {
 		
 		JDialog tela = new JDialog(parent, true);
-		tela.setSize(600, 500);
+		tela.setSize(620, 500);
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);
 		tela.setLayout(null);

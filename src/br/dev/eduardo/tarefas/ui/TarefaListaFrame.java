@@ -24,7 +24,7 @@ public class TarefaListaFrame {
 	private DefaultTableModel modelFuncionarios; //O que vai ter na tabela
 	private JScrollPane scroll; //Deixa a tabela scrollavel se ela ser muito grande
 	
-	private String[] colunas = {"NOME DA TAREFA", "DESCRIÇÃO", "RESPONSAVEL", "DATA DE INICIO", "PRAZO", "STATUS", "DATA DE ENTREGA"};
+	private String[] colunas = {"NOME DA TAREFA", "DESCRIÇÃO", "RESPONSAVEL", "DATA DE INICIO", "PRAZO", "STATUS"};
 	
 	public TarefaListaFrame(JFrame tela) {
 		criarTela(tela);
@@ -33,7 +33,7 @@ public class TarefaListaFrame {
 	public void criarTela(JFrame parent3) {
 		
 		JDialog tela = new JDialog(parent3, true);
-		tela.setSize(900, 500);
+		tela.setSize(920, 500);
 		tela.setTitle("Lista de Tarefas");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);

@@ -4,6 +4,11 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -96,8 +101,10 @@ public class TarefaFrame {
 		textPrazo = new JTextField();
 		textPrazo.setBounds(10, 255, 150, 25);
 		
+		int intPrazo = Integer.parseInt(textPrazo.getText());
+		
 		labelDataPrevEntrega =  new JLabel("Data de Previsão de Entrega:");
-		labelDataPrevEntrega.setBounds(10, 280, 200, 20);
+		labelDataPrevEntrega.setBounds(10, 280, 300, 20);
 		labelDataPrevEntrega.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		textDataPrevEntrega = new JTextField();
@@ -140,8 +147,8 @@ public class TarefaFrame {
 		painel.add(labelPrazo);
 		painel.add(textPrazo);
 		
-		painel.add(labelDataPrevEntrega);
-		painel.add(textDataPrevEntrega);
+//		painel.add(labelDataPrevEntrega);
+//		painel.add(textDataPrevEntrega);
 		
 		painel.add(labelStatus);
 		painel.add(comboStatus);
@@ -158,11 +165,18 @@ public class TarefaFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				calcularData();
+				
 				Tarefa t = new Tarefa();
 				t.setNome(textNome.getText());
 				t.setDescricao(textDescricao.getText());
 				t.setResponsavel(comboResponsavel.getToolkit());
-				//t.setDataInicio(textDataInicio.getText());
+				t.setDataInicio(spinnerDataInicio.getToolkit());
+				t.setPrazo(intPrazo);
+//				t.setDataPrevisaoDeEntrega(textDataPrevEntrega.getText());
+//				t.setStatus(comboStatus.getToolkit());
+				
+				
 			}
 		});
 		
@@ -195,6 +209,45 @@ public class TarefaFrame {
 		return spinner;
 	}
 	
-	
+	private String calcularData() {
+		
+		String dataFormatada = null;
+		
+		if(textPrazo != null) {
+			if(spinnerDataInicio != null) {
+				LocalDate dataInicial = (LocalDate) spinnerDataInicio.getValue();
+				
+				String texto2 = textPrazo.getText();
+				int prazo = Integer.parseInt(texto2);
+				
+				LocalDate dataSomada = dataInicial.plusDays(prazo);
+				
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				String dataFormatada1 = dataSomada.format(formato); 
+				
+				dataFormatada = dataFormatada1;
+				
+//				String texto = valor.toString();
+					
+				
+					
+//				Calendar calendario = Calendar.getInstance();
+//				calendario.setTime(dataInicial);
+//				calendario.add(Calendar.DAY_OF_MONTH, prazo);
+//					
+//				Date dataResultado = calendario.getTime();
+//				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//				String dataFormatada = sdf.format(dataResultado);
+//				
+//				
+//				
+//				textDataPrevEntrega.setText(dataFormatada);
+				
+			}
+			
+		}
+		
+		return dataFormatada;
+	}
 	
 }
