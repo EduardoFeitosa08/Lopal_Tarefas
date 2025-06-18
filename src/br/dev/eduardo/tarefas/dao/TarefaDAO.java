@@ -19,8 +19,8 @@ public class TarefaDAO {
 	private BufferedWriter bw;
 	private FileReader fr;
 	private BufferedReader br;
-	//private String arquivo = "/Users/25132675/tarefasDS1TA/tarefas.csv";
-	private String arquivo = "C:\\Users\\25132675\\tarefasDS1TA\\tarefas.csv";
+	private String arquivo = "/Users/25132675/tarefasDS1TA/tarefas.csv";
+	//private String arquivo = "C:\\Users\\25132675\\tarefasDS1TA\\tarefas.csv";
 	
 	
 	public TarefaDAO(Tarefa tarefa) {
@@ -41,16 +41,16 @@ public class TarefaDAO {
 		try {
 			bw.write(tarefa.toString());
 			bw.flush();
-			System.out.println(tarefa.getNome() + " gravado com sucelso");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public List<Tarefa> getFuncionarios() {
+	public List<Tarefa> getTarefa() {
 		
-		List<Tarefa> funcionarios = new ArrayList<>();
+		List<Tarefa> tarefas = new ArrayList<>();
+		
 		
 		
 		try {
@@ -60,24 +60,21 @@ public class TarefaDAO {
 				if(linha != null) {
 					String[] tarefaVetor = linha.split(",");
 					Tarefa tarefa = new Tarefa();
-					tarefa.setNome(tarefaVetor[0]);
-					tarefa.setDescricao(tarefaVetor[1]);
-//					tarefa.setResponsavel(tarefaVetor[3]);
-					//tarefa.setDataInicio(tarefaVetor[4]);
+					tarefa.setCodigo(tarefaVetor[0]);
+					tarefa.setNome(tarefaVetor[1]);
+					tarefa.setDescricao(tarefaVetor[2]);
+					tarefa.setResponsavel(tarefaVetor[3]);
+					tarefa.setDataInicio(tarefaVetor[4]);
+//					tarefa.setPrazo(tarefaVetor[5]);
+//					tarefa.setDataPrevisaoDeEntrega(tarefaVetor[6]);
+					tarefa.setStatus(tarefaVetor[7]);
+//					tarefa.setDataEntrega(tarefaVetor[8]);
+					tarefas.add(tarefa);
 					
-					
-					
-					String[] funcionarioVetor = linha.split(",");
-					Funcionario funcionario = new Funcionario();
-					funcionario.setMatricula(funcionarioVetor[0]);
-					funcionario.setNome(funcionarioVetor[1]);
-					funcionario.setCargo(funcionarioVetor[2]);
-					funcionario.setSetor(funcionarioVetor[3]);
-					funcionarios.add(tarefa);
 				}
 				
 			}
-			return funcionarios;
+			return tarefas;
 			
 		} catch (Exception e) {
 			return null;

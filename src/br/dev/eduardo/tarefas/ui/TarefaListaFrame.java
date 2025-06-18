@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.dev.eduardo.tarefas.dao.FuncionarioDAO;
+import br.dev.eduardo.tarefas.dao.TarefaDAO;
+import br.dev.eduardo.tarefas.model.Funcionario;
+import br.dev.eduardo.tarefas.model.Tarefa;
+
 public class TarefaListaFrame {
 
 	private JLabel labelTitulo;
@@ -21,10 +27,10 @@ public class TarefaListaFrame {
 	private JButton btnSair;
 	
 	private JTable tabelaFuncionarios; //Desenha a tabela
-	private DefaultTableModel modelFuncionarios; //O que vai ter na tabela
+	private DefaultTableModel modelTarefas; //O que vai ter na tabela
 	private JScrollPane scroll; //Deixa a tabela scrollavel se ela ser muito grande
 	
-	private String[] colunas = {"NOME DA TAREFA", "DESCRIÇÃO", "RESPONSAVEL", "DATA DE INICIO", "PRAZO", "STATUS"};
+	private String[] colunas = {"CÓDIGO", "NOME", "RESPONSAVEL"};
 	
 	public TarefaListaFrame(JFrame tela) {
 		criarTela(tela);
@@ -33,7 +39,7 @@ public class TarefaListaFrame {
 	public void criarTela(JFrame parent3) {
 		
 		JDialog tela = new JDialog(parent3, true);
-		tela.setSize(920, 500);
+		tela.setSize(600, 500);
 		tela.setTitle("Lista de Tarefas");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);
@@ -47,11 +53,11 @@ public class TarefaListaFrame {
 		labelTitulo.setBounds(10, 10, 400, 40);
 		
 		
-		modelFuncionarios = new DefaultTableModel(colunas, 1);
-		//carregarDados();
-		tabelaFuncionarios = new JTable(modelFuncionarios);
+		modelTarefas = new DefaultTableModel(colunas, 1);
+		carregarDados();
+		tabelaFuncionarios = new JTable(modelTarefas);
 		scroll = new JScrollPane(tabelaFuncionarios);
-		scroll.setBounds(10, 60, 880, 340);
+		scroll.setBounds(10, 60, 580, 340);
 		
 		btnNovo = new JButton("Novo");
 		btnNovo.setBounds(10, 410, 150, 40);
@@ -61,7 +67,7 @@ public class TarefaListaFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new TarefaFrame(tela);
-				//carregarDados();
+				carregarDados();
 			}
 		});
 		
@@ -93,6 +99,28 @@ public class TarefaListaFrame {
 		
 		tela.setVisible(true);
 		
+	}
+	
+	private Object[][] carregarDados() {
+		//Obter os dados que serão exibidos na Tabela
+		TarefaDAO dao = new TarefaDAO(null);
+		List<Tarefa> tarefa = dao.getTarefa();
+		
+		Object[][] dados = new Object[tarefa.size()][3];
+		
+		
+		//Para cada tarefa na lista de tarefas
+		int i = 0;
+		for(Tarefa t : tarefa) {
+			dados[i][0] = t.getCodigo();
+			dados[i][1] = t.getNome();
+			dados[i][2] = t.getResponsavel();
+			i++;
+			
+			
+		}
+		modelTarefas.setDataVector(dados, colunas);
+		return dados;
 	}
 	
 }

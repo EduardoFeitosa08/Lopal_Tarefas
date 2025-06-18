@@ -5,26 +5,37 @@ import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Tarefa {
+import br.dev.eduardo.tarefas.utils.Utils;
 
+public class Tarefa {
+	
+	private String codigo;
 	private String nome;
 	private String descricao;
-	private Toolkit dataInicio;
+	private String dataInicio;
 	private int prazo;
 	private LocalDate dataPrevisaoDeEntrega;
 	private LocalDate dataEntrega;
-	private Status status;
-	private Toolkit responsavel;
+	private String status;
+	private String responsavel;
 
 	public Tarefa() {
-		System.out.println("Criando uma tarefa...");
+		this.codigo = Utils.gerarUUID8();
 	}
 	
-	public Tarefa(String nome) {
-		System.out.println("Criando a tarefa " + nome);
-		this.nome = nome;
-	}
+//	public Tarefa(String nome) {
+//		System.out.println("Criando a tarefa " + nome);
+//		this.nome = nome;
+//	}
 	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -41,12 +52,12 @@ public class Tarefa {
 		this.descricao = descricao;
 	}
 
-	public Toolkit getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Toolkit toolkit) {
-		this.dataInicio = toolkit;
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	public int getPrazo() {
@@ -73,20 +84,24 @@ public class Tarefa {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatus(String string) {
+		this.status = string;
 	}
 
-	public Toolkit getResponsavel() {
+	public String getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(Toolkit toolkit) {
-		this.responsavel = toolkit;
+	public void setResponsavel(String string) {
+		this.responsavel = string;
 	}
 
+	public String toString() {
+		return codigo + ", " + nome + ", " + descricao + ", " + responsavel + ", " + dataInicio + ", " + prazo + ", " + dataPrevisaoDeEntrega + ", " + status + ", " + dataEntrega + "\n";
+	}
+	
 }
